@@ -1,0 +1,22 @@
+.container {
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -450px;
+    left: -250px;
+    width: 500px;
+    height: 500px;
+    border: 120px solid #2D3949;
+    border-radius: 100%;
+    z-index: -1;
+}
+
+.content {
+    width: 100%;
+    max-width: 1000px;
+    margin: 80px auto 0;
+    padding: 0 24px;
+}

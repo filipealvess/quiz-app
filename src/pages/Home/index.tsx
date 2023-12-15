@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
+import Welcome from '../../components/HomePage/Welcome';
+import styles from './styles.module.css';
 
 function Home() {
     return (
-        <>
-            <h1>Home</h1>
-            <Link to="/question">
-                Question
-            </Link>
-        </>
+        <div className={styles.container}>
+            <main className={styles.content}>
+                <Welcome />
+            </main>
+        </div>
     );
 }
 

@@ -1,0 +1,38 @@
+.header {
+    margin-bottom: 60px;
+}
+
+.header p {
+    font-size: 40px;
+}
+
+.header strong {
+    font-size: 48px;
+    font-weight: 600;
+}
+
+.description {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.description img {
+    animation: move 0.75s ease-in infinite;
+}
+
+.description span {
+    font-style: italic;
+    font-weight: 500;
+    color: #BACAE3;
+}
+
+@keyframes move {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+}
