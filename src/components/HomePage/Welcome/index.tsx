@@ -3,7 +3,7 @@ import arrowRight from '../../../assets/icons/arrow-right.svg';
 
 function Welcome() {
     return (
-        <section>
+        <section className={styles.container}>
             <header className={styles.header}>
                 <p>
                     Bem-vindo(a) ao

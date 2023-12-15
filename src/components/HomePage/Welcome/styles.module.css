@@ -18,7 +18,7 @@
 }
 
 .description img {
-    animation: move 0.75s ease-in infinite;
+    animation: moveHorizontal 0.75s ease-in infinite;
 }
 
 .description span {
@@ -27,12 +27,34 @@
     color: #BACAE3;
 }
 
-@keyframes move {
+@keyframes moveHorizontal {
     0%, 100% {
         transform: translateX(0);
     }
 
     50% {
         transform: translateX(5px);
+    }
+}
+
+@keyframes moveVertical {
+    0%, 100% {
+        transform: translateY(-2px) rotate(90deg);
+    }
+
+    50% {
+        transform: translateY(2px) rotate(90deg);
+    }
+}
+
+@media (max-width: 650px) {
+    .container {
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+
+    .description img {
+        animation-name: moveVertical;
     }
 }

@@ -1,22 +1,40 @@
 .container {
     position: relative;
-}
-
-.container::before {
-    content: '';
-    position: absolute;
-    top: -450px;
-    left: -250px;
-    width: 500px;
-    height: 500px;
-    border: 120px solid #2D3949;
-    border-radius: 100%;
-    z-index: -1;
+    padding: 24px 0;
+    overflow: hidden;
 }
 
 .content {
+    display: flex;
+    gap: 80px;
+    justify-content: space-between;
     width: 100%;
     max-width: 1000px;
     margin: 80px auto 0;
     padding: 0 24px;
+}
+
+.subjects {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 16px;
+    max-width: 450px;
+}
+
+@media (max-width: 750px) {
+    .content {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 650px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .subjects {
+        width: 100%;
+        margin: 0 auto;
+    }
 }

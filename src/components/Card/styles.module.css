@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 300px;
+    padding: 16px;
+    background-color: #3C4D67;
+    border-radius: 16px;
+    transition: 0.3s transform;
+}
+
+.container:hover {
+    transform: scale(1.03);
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #F4F5F7;
+    border-radius: 8px;
+}
+
+.fallback {
+    color: #5A606C;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.text {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: left;
+}
+
+@media (max-width: 650px) {
+    .container {
+        min-width: auto;
+    }
+}
