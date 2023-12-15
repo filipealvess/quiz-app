@@ -20,3 +20,42 @@ button {
 body {
     background-color: #313E51;
 }
+
+#root, .page {
+    min-height: 100vh;
+}
+
+.page::before {
+    content: '';
+    position: absolute;
+    top: -450px;
+    left: -250px;
+    width: 500px;
+    height: 500px;
+    border: 120px solid #2D3949;
+    border-radius: 100%;
+    z-index: -1;
+}
+
+.page::after {
+    content: '';
+    position: absolute;
+    bottom: -450px;
+    right: -250px;
+    width: 500px;
+    height: 500px;
+    border: 120px solid #2D3949;
+    border-radius: 100%;
+    z-index: -1;
+}
+
+@media (max-width: 650px) {
+    .page::before {
+        top: -150px;
+        left: -350px;
+    }
+
+    .page::after {
+        display: none;
+    }
+}
