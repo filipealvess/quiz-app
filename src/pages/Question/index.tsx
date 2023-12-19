@@ -1,12 +1,13 @@
-import { Link } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 function Question() {
+    const {subject} = useParams();
+
     return (
         <>
             <h1>Question</h1>
-            <Link to="/">
-                Home
-            </Link>
+
+            <p>{subject}</p>
         </>
     );
 }
