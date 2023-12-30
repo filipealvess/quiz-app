@@ -13,6 +13,28 @@ export const QUESTIONS: Record<string, IQuestion[]> = {
             },
             text: 'Qual a única linguagem de programação que os navegadores interpretam?',
         },
+        {
+            answer: 'c',
+            id: 2,
+            options: {
+                a: 'Não existe',
+                b: '<titulo></titulo>',
+                c: '<title></title>',
+                d: '<page></page>',
+            },
+            text: 'Qual elemento HTML define o título da página?',
+        },
+        {
+            answer: 'a',
+            id: 3,
+            options: {
+                a: '<input type="checkbox" />',
+                b: '<input type="select" />',
+                c: '<checkbox />',
+                d: 'Não existe',
+            },
+            text: 'Qual a maneira correta de criar uma caixa de seleção com HTML?',
+        },
     ],
     biologia: [
         {
