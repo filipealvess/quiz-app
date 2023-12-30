@@ -35,7 +35,7 @@ function Question() {
         const finished = (current + 1) === questions!.length;
 
         if (finished === true) {
-            navigate('/resultado');
+            navigate(`/resultado/${subjectId}`);
             return;
         }
 

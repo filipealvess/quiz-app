@@ -1,0 +1,113 @@
+.container {
+    position: relative;
+    padding: 24px 0;
+    overflow: hidden;
+}
+
+.header {
+    width: 100%;
+    max-width: 1000px;
+    margin: 40px auto 0;
+    padding: 0 24px;
+}
+
+.subject {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.subject div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    background-color: #F4F5F7;
+    border-radius: 8px;
+}
+
+.subject img {
+    max-width: 16px;
+    max-height: 16px;
+}
+
+.subject p {
+    font-weight: 600;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto 0;
+    padding: 0 24px;
+}
+
+.feedback p {
+    font-size: 24px;
+}
+
+.feedback strong {
+    margin: 4px 0 16px;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 40px;
+    border-radius: 16px;
+    background-color: #3C4D67;
+}
+
+.result p {
+    font-size: 56px;
+    font-weight: 700;
+}
+
+.result p span {
+    margin-left: 8px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.result > span {
+    font-weight: 500;
+    color: #BACAE3;
+}
+
+.result > span strong {
+    font-weight: 600;
+    color: #BACAE3;
+}
+
+.button {
+    padding: 24px;
+    border-radius: 16px;
+    background-color: #A629F6;
+    color: #FFFFFF;
+    font-weight: 600;
+    transition: 0.3s transform;
+}
+
+.button:hover {
+    transform: scale(1.03);
+}
+
+@media (max-width: 650px) {
+    .header {
+        margin: 24px auto 0;
+    }
+
+    .content {
+        flex-direction: column;
+        margin: 32px auto 0;
+    }
+}
