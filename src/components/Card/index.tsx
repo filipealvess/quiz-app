@@ -6,10 +6,15 @@ function Card({
     text,
     iconFallback,
     iconSrc,
-    onClick
+    onClick,
+    hidden,
 }: IProps) {
+    const classes = hidden === true
+        ? `${styles.container} ${styles.hidden}`
+        : styles.container;
+
     return (
-        <button onClick={onClick} className={styles.container}>
+        <button onClick={onClick} className={classes}>
             <div className={styles.icon}>
                 {iconSrc !== undefined && (
                     <img src={iconSrc} />

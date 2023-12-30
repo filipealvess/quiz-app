@@ -3,4 +3,5 @@ export interface IProps {
     iconFallback?: string;
     text: string;
     onClick?: () => void;
+    hidden?: boolean;
 }

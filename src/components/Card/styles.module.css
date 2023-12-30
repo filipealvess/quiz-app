@@ -6,11 +6,16 @@
     padding: 16px;
     background-color: #3C4D67;
     border-radius: 16px;
-    transition: 0.3s transform;
+    transition-duration: 0.3s;
+    transition-property: transform, opacity;
 }
 
 .container:hover {
     transform: scale(1.03);
+}
+
+.container.hidden {
+    opacity: 0.5;
 }
 
 .icon {
