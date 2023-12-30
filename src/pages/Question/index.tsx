@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import { getById } from '../../utils/subjects';
 import { list } from '../../utils/questions';
 import Card from '../../components/Card';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Question() {
     const { subject: subjectId } = useParams();
@@ -53,6 +53,11 @@ function Question() {
 
         getNextQuestion();
     }
+
+    useEffect(() => {
+        sessionStorage.setItem('SCORE', '0');
+        sessionStorage.setItem('QUESTIONS', String(questions!.length));
+    }, []);
 
     return (
         <div className={`page ${styles.container}`}>
