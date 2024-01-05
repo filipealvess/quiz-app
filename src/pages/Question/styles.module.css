@@ -47,6 +47,8 @@
 }
 
 .question {
+    display: flex;
+    flex-direction: column;
     width: 50%;
 }
 
@@ -59,8 +61,25 @@
 }
 
 .text {
+    flex: 1;
     font-size: 24px;
     font-weight: 600;
+}
+
+.progress {
+    width: 80%;
+    height: 12px;
+    padding: 3px;
+    margin-bottom: 40px;
+    border-radius: 100px;
+    background-color: #3C4D67;
+}
+
+.progress div {
+    height: 100%;
+    border-radius: 100px;
+    background-color: #A629F6;
+    transition: 0.1s width linear;
 }
 
 .options {
@@ -96,6 +115,12 @@
     .content {
         flex-direction: column;
         margin: 32px auto 0;
+    }
+
+    .progress {
+        width: 100%;
+        margin-bottom: 0;
+        margin-top: 40px;
     }
 
     .question {

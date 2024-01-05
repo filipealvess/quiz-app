@@ -19,7 +19,6 @@ function Question() {
 
     const questions = list(subjectId as string);
 
-    // TODO: show a feedback message and allow retry
     if (questions === null || questions?.length === 0) {
         return (
             <Navigate to='/' replace />
@@ -29,6 +28,8 @@ function Question() {
     const [current, setCurrent] = useState(0);
     const [selected, setSelected] = useState('');
     const [score, setScore] = useState(0);
+    const [progress, setProgress] = useState(100);
+    const [timerId, setTimerId] = useState(0);
     const navigate = useNavigate();
 
     function getNextQuestion() {
@@ -41,6 +42,9 @@ function Question() {
 
         setSelected('');
         setCurrent(prevState => prevState + 1);
+
+        setProgress(100);
+        startTimer();
     }
 
     function handleSend() {
@@ -54,10 +58,32 @@ function Question() {
         getNextQuestion();
     }
 
+    function startTimer() {
+        const timer = setInterval(() => {
+            setProgress(prevState => prevState - 1);
+        }, 100);
+
+        setTimerId(prevState => {
+            clearInterval(prevState);
+
+            return timer;
+        });
+    }
+
     useEffect(() => {
         sessionStorage.setItem('SCORE', '0');
         sessionStorage.setItem('QUESTIONS', String(questions!.length));
+
+        startTimer();
+
+        () => clearInterval(timerId);
     }, []);
+
+    useEffect(() => {
+        if (progress <= 0) {
+            getNextQuestion();
+        }
+    }, [progress]);
 
     return (
         <div className={`page ${styles.container}`}>
@@ -82,6 +108,10 @@ function Question() {
                     <p className={styles.text}>
                         {questions[current].text}
                     </p>
+
+                    <div className={styles.progress}>
+                        <div style={{width: `${progress}%`}} />
+                    </div>
                 </section>
 
                 <section className={styles.options}>
