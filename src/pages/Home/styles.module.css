@@ -22,6 +22,42 @@
     max-width: 450px;
 }
 
+.feedback {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: 40px auto 0;
+}
+
+.feedback img {
+    width: 24px;
+    height: 24px;
+    animation: spin 1.5s linear infinite;
+}
+
+.feedback p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #BACAE3;
+}
+
+.feedback button {
+    padding: 4px 8px;
+    border: 1px solid #BACAE3;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #BACAE3;
+    transition-property: border-color, color;
+    transition-duration: 0.3s;
+}
+
+.feedback button:hover {
+    border-color: #F2F2F2;
+    color: #F2F2F2;
+}
+
 @media (max-width: 750px) {
     .content {
         gap: 40px;
@@ -36,5 +72,15 @@
     .subjects {
         width: 100%;
         margin: 0 auto;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
     }
 }
