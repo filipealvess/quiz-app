@@ -15,12 +15,6 @@ const ICONS_SOURCE: Record<string, string> = {
 };
 
 async function getAll(): Promise<ISubject[] | null> {
-    await new Promise((res) => {
-        setTimeout(() => {
-            res('');
-        }, 1000);
-    });
-
     try {
         const {data} = await api.get<ISubjectResponse[]>('/subjects');
 
