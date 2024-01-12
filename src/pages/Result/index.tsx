@@ -1,45 +1,56 @@
 import { Navigate, useParams, useNavigate } from 'react-router-dom';
 import styles from './styles.module.css';
-import { getById } from '../../utils/subjects';
+import { getById } from '../../models/subject';
+import { useEffect, useState } from 'react';
+
+import { ISubject } from '../../models/subject/index.d';
 
 function Result() {
+    const [subject, setSubject] = useState<ISubject>();
+
+    const { subject: subjectId } = useParams();
+
+    const navigate = useNavigate();
+
     const score = sessionStorage.getItem('SCORE');
     const total = sessionStorage.getItem('QUESTIONS');
 
-    
     if (score === null || total === null) {
         return (
             <Navigate to='/' replace />
         );
     }
 
-    const { subject: subjectId } = useParams();
-    const subject = getById(subjectId as string);
-    
-    if (subject === null) {
-        return (
-            <Navigate to='/' replace />
-        );
-    }
+    async function loadSubject() {
+        const response = await getById(String(subjectId));
 
-    const navigate = useNavigate();
+        if (response !== null) {
+            setSubject(response);
+        }
+    }
 
     function retry() {
         sessionStorage.clear();
         navigate('/');
     }
 
+    useEffect(() => {
+        loadSubject();
+    }, []);
+
     return (
         <div className={`page ${styles.container}`}>
-            <header className={styles.header}>
-                <article className={styles.subject}>
-                    <div>
-                        <img src={subject.icon} />
-                    </div>
+            {subject?.id !== undefined && (
+                <header className={styles.header}>
+                    <article className={styles.subject}>
+                        <div>
+                            <img src={subject?.icon} />
+                        </div>
 
-                    <p>{subject.name}</p>
-                </article>
-            </header>
+                        <p>{subject?.name}</p>
+                    </article>
+                </header>
+            )}
 
             <main className={styles.content}>
                 <section className={styles.feedback}>
