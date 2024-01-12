@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import spinnerIcon from '../../assets/icons/spinner.svg';
 import { getAll } from '../../models/subject';
 
-import { ISubject } from '../../constants/subjects.d';
+import { ISubject } from '../../models/subject/index.d';
 
 function Home() {
     const [isLoading, setIsLoading] = useState(false);
