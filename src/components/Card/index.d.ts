@@ -1,5 +1,5 @@
 export interface IProps {
-    iconSrc?: string;
+    icon?: string;
     iconFallback?: string;
     text: string;
     onClick?: () => void;

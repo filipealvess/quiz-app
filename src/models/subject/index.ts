@@ -5,7 +5,6 @@ import history from '../../assets/icons/history.svg';
 import math from '../../assets/icons/math.svg';
 
 import {ISubject} from './index.d';
-import {ISubjectResponse} from './index.d';
 
 const ICONS_SOURCE: Record<string, string> = {
     code,
@@ -16,10 +15,10 @@ const ICONS_SOURCE: Record<string, string> = {
 
 async function getAll(): Promise<ISubject[] | null> {
     try {
-        const {data} = await api.get<ISubjectResponse[]>('/subjects');
+        const {data} = await api.get<ISubject[]>('/subjects');
 
         return data.map(subject => ({
-            iconSrc: ICONS_SOURCE[subject.icon],
+            icon: ICONS_SOURCE[subject.icon],
             id: subject.id,
             name: subject.name,
         }));

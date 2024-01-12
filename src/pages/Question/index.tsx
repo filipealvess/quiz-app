@@ -90,7 +90,7 @@ function Question() {
             <header className={styles.header}>
                 <article className={styles.subject}>
                     <div>
-                        <img src={subject.iconSrc} />
+                        <img src={subject.icon} />
                     </div>
 
                     <p>

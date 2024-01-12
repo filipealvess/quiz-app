@@ -61,7 +61,7 @@ function Home() {
                         subjects.map(subject => (
                             <Card
                                 text={subject.name}
-                                iconSrc={subject.iconSrc}
+                                icon={subject.icon}
                                 key={subject.id}
                                 onClick={() => navigate(`/${subject.id}`)}
                             />

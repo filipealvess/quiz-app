@@ -5,7 +5,7 @@ import {IProps} from './index.d';
 function Card({
     text,
     iconFallback,
-    iconSrc,
+    icon,
     onClick,
     hidden,
 }: IProps) {
@@ -16,11 +16,11 @@ function Card({
     return (
         <button onClick={onClick} className={classes}>
             <div className={styles.icon}>
-                {iconSrc !== undefined && (
-                    <img src={iconSrc} />
+                {icon !== undefined && (
+                    <img src={icon} />
                 )}
 
-                {(iconSrc === undefined && iconFallback !== undefined) && (
+                {(icon === undefined && iconFallback !== undefined) && (
                     <span className={styles.fallback}>
                         {iconFallback}
                     </span>

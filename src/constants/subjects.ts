@@ -9,21 +9,21 @@ export const SUBJECTS: ISubject[] = [
     {
         id: 'programacao',
         name: 'Programação',
-        iconSrc: code,
+        icon: code,
     },
     {
         id: 'biologia',
         name: 'Biologia',
-        iconSrc: biology,
+        icon: biology,
     },
     {
         id: 'historia',
         name: 'História',
-        iconSrc: history,
+        icon: history,
     },
     {
         id: 'matematica',
         name: 'Matemática',
-        iconSrc: math,
+        icon: math,
     },
 ];
