@@ -1,29 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 import styles from './styles.module.css';
-import { getById } from '../../utils/subjects';
-import { list } from '../../utils/questions';
 import Card from '../../components/Card';
 import { useEffect, useState } from 'react';
+import { getBySubject as getQuestions } from '../../models/question';
+import { SUBJECT_ICONS } from '../../constants/icons';
+import spinnerIcon from '../../assets/icons/spinner.svg';
+
+import { ISubject } from '../../models/subject/index.d';
+import { IQuestion } from '../../models/question/index.d';
 
 function Question() {
+    const [hasErrors, setHasErrors] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [subject, setSubject] = useState<ISubject>();
+    const [questions, setQuestions] = useState<IQuestion[]>([]);
+
     const { subject: subjectId } = useParams();
-    const subject = getById(subjectId as string);
-
-    if (subject === null) {
-        return (
-            <Navigate to='/' replace />
-        );
-    }
-
-    const questions = list(subjectId as string);
-
-    if (questions === null || questions?.length === 0) {
-        return (
-            <Navigate to='/' replace />
-        );
-    }
 
     const [current, setCurrent] = useState(0);
     const [selected, setSelected] = useState('');
@@ -33,7 +26,7 @@ function Question() {
     const navigate = useNavigate();
 
     function getNextQuestion() {
-        const finished = (current + 1) === questions!.length;
+        const finished = (current + 1) === questions.length;
 
         if (finished === true) {
             navigate(`/resultado/${subjectId}`);
@@ -48,7 +41,7 @@ function Question() {
     }
 
     function handleSend() {
-        const isCorrect = questions![current].answer === selected;
+        const isCorrect = questions[current]?.answer === selected;
 
         if (isCorrect === true) {
             sessionStorage.setItem('SCORE', String(score + 1));
@@ -70,11 +63,31 @@ function Question() {
         });
     }
 
-    useEffect(() => {
+    async function startGame() {
+        setIsLoading(true);
+
+        const response = await getQuestions(String(subjectId));
+
+        setIsLoading(false);
+
+        if (response === null) {
+            setHasErrors(true);
+            return;
+        }
+
+        const {questions: questionsData, ...subjectData} = response;
+
+        setSubject(subjectData);
+        setQuestions(questionsData);
+
         sessionStorage.setItem('SCORE', '0');
-        sessionStorage.setItem('QUESTIONS', String(questions!.length));
+        sessionStorage.setItem('QUESTIONS', String(questionsData.length));
 
         startTimer();
+    }
+
+    useEffect(() => {
+        startGame();
 
         () => clearInterval(timerId);
     }, []);
@@ -85,16 +98,40 @@ function Question() {
         }
     }, [progress]);
 
+    if (isLoading === true && hasErrors === false) {
+        return (
+            <div className={`page ${styles.container}`}>
+                <div className={styles.feedback}>
+                    <img src={spinnerIcon} />
+                    <p>Carregando...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (isLoading === false && hasErrors === true) {
+        return (
+            <div className={`page ${styles.container}`}>
+                <div className={styles.feedback}>
+                    <p>Ocorreu um erro ao carregar as perguntas</p>
+                    <button onClick={() => navigate('/')}>
+                        Voltar para o início
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className={`page ${styles.container}`}>
             <header className={styles.header}>
                 <article className={styles.subject}>
                     <div>
-                        <img src={subject.icon} />
+                        <img src={SUBJECT_ICONS[subject?.icon ?? '']} />
                     </div>
 
                     <p>
-                        {subject.name}
+                        {subject?.name}
                     </p>
                 </article>
             </header>
@@ -106,7 +143,7 @@ function Question() {
                     </p>
 
                     <p className={styles.text}>
-                        {questions[current].text}
+                        {questions[current]?.text}
                     </p>
 
                     <div className={styles.progress}>
@@ -116,28 +153,28 @@ function Question() {
 
                 <section className={styles.options}>
                     <Card
-                        text={questions[current].options.a}
+                        text={questions[current]?.options?.a}
                         iconFallback='A'
                         hidden={selected !== '' && selected !== 'a'}
                         onClick={() => setSelected('a')}
                     />
 
                     <Card
-                        text={questions[current].options.b}
+                        text={questions[current]?.options?.b}
                         iconFallback='B'
                         hidden={selected !== '' && selected !== 'b'}
                         onClick={() => setSelected('b')}
                     />
 
                     <Card
-                        text={questions[current].options.c}
+                        text={questions[current]?.options?.c}
                         iconFallback='C'
                         hidden={selected !== '' && selected !== 'c'}
                         onClick={() => setSelected('c')}
                     />
 
                     <Card
-                        text={questions[current].options.d}
+                        text={questions[current]?.options?.d}
                         iconFallback='D'
                         hidden={selected !== '' && selected !== 'd'}
                         onClick={() => setSelected('d')}
