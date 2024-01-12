@@ -21,6 +21,25 @@ async function getAll(): Promise<ISubject[] | null> {
     }
 }
 
+async function getById(id: string): Promise<ISubject | null> {
+    try {
+        const {data} = await api.get<ISubject>(`/subjects/${id}`);
+
+        return {
+            icon: SUBJECT_ICONS[data.icon],
+            id: data.id,
+            name: data.name,
+        };
+    }
+    
+    catch (error) {
+        console.warn('Context: get subject by id');
+        console.error(error);
+        return null;
+    }
+}
+
 export {
-    getAll
+    getAll,
+    getById,
 };
