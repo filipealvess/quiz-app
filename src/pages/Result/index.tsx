@@ -1,12 +1,13 @@
 import { Navigate, useParams, useNavigate } from 'react-router-dom';
 import styles from './styles.module.css';
-import { getById } from '../../models/subject';
 import { useEffect, useState } from 'react';
+import { useStore } from '../../contexts/Store';
 
 import { ISubject } from '../../models/subject/index.d';
 
 function Result() {
     const [subject, setSubject] = useState<ISubject>();
+    const {store} = useStore();
 
     const { subject: subjectId } = useParams();
 
@@ -21,22 +22,21 @@ function Result() {
         );
     }
 
-    async function loadSubject() {
-        const response = await getById(String(subjectId));
-
-        if (response !== null) {
-            setSubject(response);
-        }
-    }
-
     function retry() {
         sessionStorage.clear();
         navigate('/');
     }
 
     useEffect(() => {
-        loadSubject();
-    }, []);
+        const subjectData = store.subjectsById[String(subjectId)];
+
+        if (subjectData === undefined) {
+            navigate('/', {replace: true});
+            return;
+        }
+
+        setSubject(subjectData);
+    }, [store.subjectsById]);
 
     return (
         <div className={`page ${styles.container}`}>
