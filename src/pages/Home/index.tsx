@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import spinnerIcon from '../../assets/icons/spinner.svg';
 import { getAll } from '../../models/subject';
+import { useStore } from '../../contexts/Store';
 
 import { ISubject } from '../../models/subject/index.d';
 
@@ -13,6 +14,7 @@ function Home() {
     const [hasLoadError, setHasLoadError] = useState(false);
     const [subjects, setSubjects] = useState<ISubject[]>([]);
     const navigate = useNavigate();
+    const {addSubject, setFetched, store} = useStore();
 
     async function fetchSubjects() {
         setHasLoadError(false);
@@ -32,8 +34,23 @@ function Home() {
     }
 
     useEffect(() => {
+        if (store.fetched === true) {
+            setSubjects(Object.values(store.subjectsById));
+            return;
+        }
+
         fetchSubjects();
-    }, []);
+    }, [store.fetched]);
+
+    useEffect(() => {
+        if (store.fetched === false && subjects.length > 0) {
+            subjects.forEach(subject => {
+                addSubject(subject.id, subject);
+            });
+
+            setFetched();
+        }
+    }, [store.subjectsById, subjects]);
 
     return (
         <div className={`page ${styles.container}`}>

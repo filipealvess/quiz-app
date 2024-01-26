@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { getBySubject as getQuestions } from '../../models/question';
 import { SUBJECT_ICONS } from '../../constants/icons';
 import spinnerIcon from '../../assets/icons/spinner.svg';
+import { useStore } from '../../contexts/Store';
 
 import { ISubject } from '../../models/subject/index.d';
 import { IQuestion } from '../../models/question/index.d';
@@ -24,6 +25,7 @@ function Question() {
     const [progress, setProgress] = useState(100);
     const [timerId, setTimerId] = useState(0);
     const navigate = useNavigate();
+    const {addSubject, store} = useStore();
 
     function getNextQuestion() {
         const finished = (current + 1) === questions.length;
@@ -84,6 +86,15 @@ function Question() {
         sessionStorage.setItem('QUESTIONS', String(questionsData.length));
 
         startTimer();
+
+        const storedData = store.subjectsById[String(subjectId)];
+
+        if (storedData === undefined) {
+            addSubject(subjectData.id, {
+                ...subjectData,
+                icon: SUBJECT_ICONS[subjectData.icon],
+            });
+        }
     }
 
     useEffect(() => {
